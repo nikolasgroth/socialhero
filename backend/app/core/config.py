@@ -14,9 +14,17 @@ def _validate_production_secrets(env: str, jwt_secret: str) -> None:
 
 
 class Settings(BaseSettings):
-    # Database
+    # Database (Railway liefert postgresql:// – wir brauchen postgresql+asyncpg://)
     DATABASE_URL: str = "postgresql+asyncpg://socialhero:socialhero@localhost:5432/socialhero"
     REDIS_URL: str = "redis://localhost:6379/0"
+
+    @property
+    def database_url_async(self) -> str:
+        """Stellt sicher, dass asyncpg verwendet wird (Railway liefert postgresql://)."""
+        url = self.DATABASE_URL
+        if url.startswith("postgresql://") and "+asyncpg" not in url:
+            return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
 
     # Security
     JWT_SECRET: str = "change-me-to-a-very-long-random-secret-at-least-32-chars"

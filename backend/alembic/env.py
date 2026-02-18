@@ -17,7 +17,7 @@ from app.core.database import Base
 from app.models import User, Mission, MissionResponse  # noqa: ensure models are imported
 
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+config.set_main_option("sqlalchemy.url", settings.database_url_async)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
@@ -45,7 +45,7 @@ def do_run_migrations(connection):
 
 async def run_async_migrations() -> None:
     connectable = create_async_engine(
-        settings.DATABASE_URL,
+        settings.database_url_async,
         poolclass=pool.NullPool,
     )
     async with connectable.connect() as connection:
