@@ -122,6 +122,10 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml logs -f backend
 ```
 
+### Datenbank-Migrationen
+
+Das Backend führt beim Start automatisch `alembic upgrade head` aus (siehe Dockerfile). Die Tabellen `users`, `missions`, `mission_responses` werden beim ersten Deploy angelegt. Bei Railway und anderen Plattformen geschieht das beim Container-Start.
+
 ---
 
 ## Checkliste Beta-Start
