@@ -1,0 +1,13 @@
+{
+  "name": "SocialHero",
+  "short_name": "SocialHero",
+  "description": "Dein Schutzschild in der Tasche",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#FF3B5C",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

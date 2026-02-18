@@ -1,0 +1,24 @@
+# SSL-Variante: Erweitert docker-compose.prod.yml um Let's Encrypt
+# Nutzung: docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.ssl.yml up -d
+#
+# Vor dem ersten Start:
+# 1. In nginx.prod.conf: REPLACE_WITH_DOMAIN durch deine Domain ersetzen (z.B. app.socialhero.de)
+# 2. Zertifikate mit certbot holen (z.B. auf dem Host):
+#    certbot certonly --standalone -d app.socialhero.de
+# 3. Certs als Volume mounten (Pfad anpassen):
+#    volumes: - /etc/letsencrypt:/etc/letsencrypt:ro
+
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - ./frontend/nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
+      # Zertifikate mounten (nach certbot):
+      # - /etc/letsencrypt:/etc/letsencrypt:ro
+    ports:
+      - "80:80"
+      - "443:443"

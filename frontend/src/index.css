@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #0A0A0F;
+  --bg-card: #13131A;
+  --bg-elevated: #1A1A24;
+  --primary: #FF3B5C;
+  --primary-glow: rgba(255, 59, 92, 0.3);
+  --primary-soft: rgba(255, 59, 92, 0.1);
+  --accent: #00E5A0;
+  --accent-glow: rgba(0, 229, 160, 0.3);
+  --text: #F0F0F5;
+  --text-muted: #8888A0;
+  --text-dim: #55556A;
+  --border: #2A2A3A;
+  --danger: #FF3B5C;
+  --warning: #FFB800;
+  --success: #00E5A0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.5); opacity: 0; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); } 20%, 40%, 60%, 80% { transform: translateX(4px); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes countdownPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+@keyframes glow { 0%, 100% { box-shadow: 0 0 20px var(--primary-glow); } 50% { box-shadow: 0 0 40px var(--primary-glow), 0 0 80px var(--primary-glow); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+.animate-fade { animation: fadeIn 0.4s ease; }
+.animate-slide-up { animation: slideUp 0.3s ease; }
+
+/* ─── Components ─── */
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 28px; border-radius: 14px; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; width: 100%;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover:not(:disabled) { background: #E0334F; box-shadow: 0 4px 20px var(--primary-glow); }
+.btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+.btn-outline:hover:not(:disabled) { border-color: var(--text-muted); background: var(--bg-elevated); }
+.btn-success { background: var(--success); color: var(--bg); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-ghost { background: transparent; color: var(--text-muted); padding: 8px 16px; }
+
+.input {
+  width: 100%; padding: 14px 18px; border-radius: 12px;
+  border: 1.5px solid var(--border); background: var(--bg-elevated);
+  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px;
+  outline: none; transition: border-color 0.2s;
+}
+.input:focus { border-color: var(--primary); }
+.input::placeholder { color: var(--text-dim); }
+
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px;
+}
+
+/* ─── SOS Button ─── */
+.sos-btn {
+  width: 180px; height: 180px; border-radius: 50%; border: none;
+  background: radial-gradient(circle at 30% 30%, #FF5E7A, var(--primary), #CC2040);
+  color: white; font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700;
+  cursor: pointer; position: relative; transition: all 0.15s;
+  box-shadow: 0 0 40px var(--primary-glow), 0 8px 32px rgba(0,0,0,0.4);
+  letter-spacing: 4px;
+}
+.sos-btn:hover { transform: scale(1.04); box-shadow: 0 0 60px var(--primary-glow), 0 8px 40px rgba(0,0,0,0.5); }
+.sos-btn:active { transform: scale(0.96); }
+.sos-btn .ring {
+  position: absolute; inset: -12px; border-radius: 50%;
+  border: 2px solid var(--primary); animation: pulse 2s ease-in-out infinite; pointer-events: none;
+}
+.sos-btn .ring2 { animation-delay: 1s; }
+
+/* ─── Tab Bar ─── */
+.tab-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px; display: flex;
+  background: var(--bg-card); border-top: 1px solid var(--border);
+  padding: 8px 0 max(8px, env(safe-area-inset-bottom)); z-index: 100;
+}
+.tab-bar button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px; background: none; border: none;
+  color: var(--text-dim); font-family: 'DM Sans', sans-serif; font-size: 11px;
+  cursor: pointer; transition: color 0.2s;
+}
+.tab-bar button.active { color: var(--primary); }
+
+/* ─── Toast ─── */
+.toast {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  padding: 14px 24px; border-radius: 14px; color: var(--text);
+  font-size: 14px; z-index: 1000; animation: slideUp 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4); max-width: 90%;
+  text-align: center;
+}
+
+/* ─── Overlay ─── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px); z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.overlay-card {
+  background: var(--bg-card); border: 2px solid var(--primary);
+  border-radius: 24px; padding: 32px; max-width: 360px; width: 90%;
+  text-align: center; animation: shake 0.5s ease, glow 2s ease infinite;
+}
+
+/* ─── Countdown ─── */
+.countdown-circle {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 3px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700;
+  margin: 0 auto; animation: countdownPulse 1s ease infinite;
+}
+
+/* ─── FAQ ─── */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+  padding: 16px 0; cursor: pointer; font-weight: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p { padding: 0 0 16px; color: var(--text-muted); line-height: 1.6; font-size: 14px; }
+
+/* ─── Progress ─── */
+.progress-dots { display: flex; gap: 8px; justify-content: center; margin: 24px 0; }
+.progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: all 0.3s; }
+.progress-dot.active { background: var(--primary); width: 24px; border-radius: 4px; }
+
+/* ─── Toggle ─── */
+.toggle {
+  width: 48px; height: 28px; border-radius: 14px; border: none;
+  cursor: pointer; position: relative; transition: background 0.2s;
+}
+.toggle.on { background: var(--accent); }
+.toggle.off { background: var(--border); }
+.toggle-knob {
+  width: 22px; height: 22px; border-radius: 50%; background: white;
+  position: absolute; top: 3px; transition: left 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.toggle.on .toggle-knob { left: 23px; }
+.toggle.off .toggle-knob { left: 3px; }

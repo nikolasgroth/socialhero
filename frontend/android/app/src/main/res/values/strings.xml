@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">socialhero</string>
+    <string name="title_activity_main">socialhero</string>
+    <string name="package_name">socialhero.intensivkontakt.de</string>
+    <string name="custom_url_scheme">socialhero.intensivkontakt.de</string>
+</resources>

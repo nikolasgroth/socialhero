@@ -1,0 +1,13 @@
+{
+  "appId": "socialhero.intensivkontakt.de",
+  "appName": "SocialHero",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  }
+}
