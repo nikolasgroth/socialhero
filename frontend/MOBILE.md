@@ -65,6 +65,16 @@ Für Push-Benachrichtigungen auf iOS und Android:
 - **minSdkVersion:** 22+ (für Geolocation)
 - **Permissions:** Bereits in AndroidManifest.xml (Standort, Benachrichtigungen)
 
+## "Load failed" auf iOS / CORS
+
+Wenn die Registrierung oder API-Anfragen auf iOS mit „Load failed“ scheitern, liegt das oft an CORS im WebView. **CapacitorHttp** ist in `capacitor.config.json` aktiviert – es patcht `fetch` und nutzt native HTTP-Requests, die CORS umgehen.
+
+Nach Änderungen an `capacitor.config.json`:
+```bash
+npx cap sync
+```
+Dann in Xcode einen **Clean Build** (Product → Clean Build Folder) und neu starten.
+
 ## NPM-Scripts
 
 | Script | Beschreibung |

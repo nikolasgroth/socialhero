@@ -1,5 +1,10 @@
 import { API_URL } from '../config';
+import { isNativePlatform } from '../utils/capacitor';
 
+/**
+ * CapacitorHttp (enabled in capacitor.config.json) patcht fetch auf iOS/Android
+ * und nutzt native HTTP-Requests – damit umgehen wir CORS und "Load failed".
+ */
 class ApiClient {
   constructor() {
     this.token = null;
@@ -23,17 +28,33 @@ class ApiClient {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
 
-    const res = await fetch(`${API_URL}${path}`, {
-      ...options,
-      headers,
-    });
+    const url = `${API_URL}${path}`;
+    if (!API_URL && isNativePlatform()) {
+      throw new Error(
+        'API-URL fehlt. Bitte die App mit VITE_API_URL neu bauen: ' +
+        'VITE_API_URL=https://deine-api.de npm run build && npx cap sync'
+      );
+    }
+
+    let res;
+    try {
+      res = await fetch(url, { ...options, headers });
+    } catch (err) {
+      console.error('[API] Request failed:', url, err?.message || err, err);
+      if (err.name === 'TypeError' || err.message?.includes('fetch') || err.message?.includes('Load failed')) {
+        throw new Error(
+          'Verbindung zum Server fehlgeschlagen. Prüfe die Internetverbindung und ob die API-URL korrekt ist.'
+        );
+      }
+      throw err;
+    }
 
     if (res.status === 204) return null;
 
     const data = await res.json();
 
     if (!res.ok) {
-      const error = new Error(data.detail || 'Anfrage fehlgeschlagen');
+      const error = new Error(data?.detail || 'Anfrage fehlgeschlagen');
       error.status = res.status;
       throw error;
     }
