@@ -2,6 +2,7 @@ import { isNativePlatform } from './capacitor';
 
 const TOKEN_KEY = 'sh_token';
 const ONBOARDED_KEY = 'sh_onboarded';
+const LOCATION_EXPLANATION_SEEN_KEY = 'sh_location_explanation_seen';
 
 async function getNative(key) {
   const { Preferences } = await import('@capacitor/preferences');
@@ -69,5 +70,27 @@ export async function setOnboarded(value) {
   }
   try {
     sessionStorage.setItem(ONBOARDED_KEY, value ? '1' : '0');
+  } catch {}
+}
+
+export async function getLocationExplanationSeen() {
+  if (isNativePlatform()) {
+    const v = await getNative(LOCATION_EXPLANATION_SEEN_KEY);
+    return v === '1';
+  }
+  try {
+    return Promise.resolve(sessionStorage.getItem(LOCATION_EXPLANATION_SEEN_KEY) === '1');
+  } catch {
+    return false;
+  }
+}
+
+export async function setLocationExplanationSeen(value) {
+  if (isNativePlatform()) {
+    await setNative(LOCATION_EXPLANATION_SEEN_KEY, value ? '1' : '0');
+    return;
+  }
+  try {
+    sessionStorage.setItem(LOCATION_EXPLANATION_SEEN_KEY, value ? '1' : '0');
   } catch {}
 }

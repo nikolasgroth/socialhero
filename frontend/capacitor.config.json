@@ -1,1 +1,11 @@
-{"appId":"socialhero.intensivkontakt.de","appName":"SocialHero","webDir":"dist","server":{"androidScheme":"https"},"plugins":{"PushNotifications":{"presentationOptions":["badge","sound","alert"]},"CapacitorHttp":{"enabled":true}}}
+{
+  "appId": "socialhero.intensivkontakt.de",
+  "appName": "SocialHero",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" },
+  "android": { "useLegacyBridge": true },
+  "plugins": {
+    "PushNotifications": { "presentationOptions": ["badge", "sound", "alert"] },
+    "CapacitorHttp": { "enabled": true }
+  }
+}

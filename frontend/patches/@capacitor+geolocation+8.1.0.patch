@@ -1,0 +1,13 @@
+diff --git a/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationPlugin.swift b/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationPlugin.swift
+index 1234567..89abcdef 100644
+--- a/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationPlugin.swift
++++ b/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationPlugin.swift
+@@ -131,7 +131,7 @@ private extension GeolocationPlugin {
+                 case .denied:
+                     self.onLocationPermissionNotGranted(error: .permissionDenied)
+                 case .notDetermined:
+-                    self.requestLocationAuthorisation(type: .whenInUse)
++                    self.requestLocationAuthorisation(type: .always)
+                 case .restricted:
+                     self.onLocationPermissionNotGranted(error: .permissionRestricted)
+                 case .authorisedAlways, .authorisedWhenInUse:

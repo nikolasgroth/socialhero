@@ -50,6 +50,11 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>SocialHero benötigt deinen Standort, um Hilferufe an Menschen in deiner Nähe zu senden und dich als Helfer zu alarmieren.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>SocialHero benötigt deinen Standort, um Hilferufe an Menschen in deiner Nähe zu senden und dich als Helfer zu alarmieren.</string>
+	<string>SocialHero benötigt deinen Standort immer – auch im Hintergrund – damit du als Helfer gefunden werden kannst, wenn jemand in deiner Nähe Hilfe braucht.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

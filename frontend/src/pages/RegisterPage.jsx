@@ -31,7 +31,7 @@ export default function RegisterPage() {
       } else {
         await register(name, email, password);
       }
-      navigate('/setup');
+      navigate('/role-selection');
     } catch (err) {
       setError(err.message);
     } finally {

@@ -57,13 +57,14 @@ Für Push-Benachrichtigungen auf iOS und Android:
 
 - **Signing:** In Xcode → Signing & Capabilities → Team auswählen
 - **Push:** Capability „Push Notifications“ hinzufügen
-- **Background Modes:** Optional „Remote notifications“ für Hintergrund-Push
+- **Background Modes:** „Location“ und „Remote notifications“ für Standort im Hintergrund und Push
 
 ## Android-spezifisch
 
 - **google-services.json** muss in `android/app/` liegen
 - **minSdkVersion:** 22+ (für Geolocation)
-- **Permissions:** Bereits in AndroidManifest.xml (Standort, Benachrichtigungen)
+- **Permissions:** Standort (inkl. Hintergrund), Benachrichtigungen in AndroidManifest.xml
+- **Standort „Immer“:** Die App fragt nach „Standort immer erlauben“, damit Helfer auch im Hintergrund gefunden werden können
 
 ## "Load failed" auf iOS / CORS
 
