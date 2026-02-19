@@ -3,13 +3,7 @@ import { useAuth } from './AuthContext';
 import { useLocationExplanation } from './LocationExplanationContext';
 import { useWebSocket } from './WebSocketContext';
 import { useGeolocation } from '../hooks/useGeolocation';
-import { isNativePlatform } from '../utils/capacitor';
-import { registerPlugin } from '@capacitor/core';
 import api from '../services/api';
-
-const BackgroundGeolocation = typeof window !== 'undefined' && isNativePlatform()
-  ? registerPlugin('BackgroundGeolocation')
-  : null;
 
 const ALERT_COUNTDOWN = 5;
 const ACCEPT_TIMEOUT = 30;
@@ -40,26 +34,6 @@ export function MissionProvider({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated || !locationExplanationSeen) return;
-
-    if (BackgroundGeolocation) {
-      let watcherId = null;
-      BackgroundGeolocation.addWatcher(
-        {
-          requestPermissions: true,
-          backgroundMessage: 'SocialHero sucht Helfer in deiner Nähe.',
-          backgroundTitle: 'Standort aktiv',
-          distanceFilter: 100,
-        },
-        (location, err) => {
-          if (err) return;
-          if (location) send('LOCATION_UPDATE', { lat: location.latitude, lng: location.longitude });
-        }
-      ).then((id) => { watcherId = id; }).catch(() => {});
-
-      return () => {
-        if (watcherId) BackgroundGeolocation.removeWatcher({ id: watcherId }).catch(() => {});
-      };
-    }
 
     getPosition(false).then((pos) => send('LOCATION_UPDATE', pos)).catch(() => {});
     const interval = setInterval(() => {
